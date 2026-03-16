@@ -20,18 +20,45 @@
             // To get around this, you can use a proxy.
             const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"
 
+            let posts = new Array();
+
+            const feeds = ["https://riverseeber.net/blog/feed.xml", "https://pluralistic.net/feed/"];
+
             let parser = new RSSParser();
-            parser.parseURL(CORS_PROXY + 'https://www.reddit.com/.rss', function(err, feed) {
-            if (err){ 
-                console.log("error");
-                throw err;
-            }
-            console.log(feed.title);
-            feed.items.forEach(function(entry) {
-                console.log(entry.title + ':' + entry.link);
-                addListItem(entry.link, feed.title + ": " + entry.title);
-            })
-            })
+
+            //iterate for each rss feed
+            feeds.forEach(feedLink => {
+                
+                parser.parseURL(CORS_PROXY + feedLink, function(err, feed) {
+                if (err){ 
+                    console.log("error");
+                    throw err;
+                }
+                console.log(feed.title);
+                feed.items.forEach(function(entry) {
+                    entry.feed = feed;
+                    // append the blog entry to the list of posts
+                    //posts.push({"feedLink": feed.link, "feedTitle": feed.title, "title": entry.title, "link": entry.link, "timestamp": entry.timestamp});
+                    //posts.push("yeyea");
+                    posts = [...posts, "yeaha"];
+                    console.log("[41]: "+ entry);
+
+                    //addListItem(entry.link, feed.title + ": " + entry.title);
+                })
+                })
+            });
+
+            //sort posts in reverse-chronological order
+            //[TODO]
+
+            console.log("a");
+
+            // this is failing cuz of a race condition. 
+            // We need to await the feeds being handled before we run this for loop
+            posts.forEach(entry => {
+                console.log("[52]: "+ entry);
+                addListItem(entry["link"], entry["feed.title"] + ": " + entry["title"]);
+            });
 
             </script>
             <script>
@@ -45,8 +72,6 @@
                     link.appendChild(text);
                     document.getElementById("webring-list").appendChild(li);
                 }
-
-                addListItem("https://riverseeber.net", "River's Website");
             </script>
         </div>
     </div>
