@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="top-parent">
+        <div class="box1">
+            <p>Hello, World</p>
+        </div>
+        <div class="box2" id="webring-display">
+            <ul id="webring-list">
+            </ul>
+            <script>
+                function addListItem(url, pageText){
+                    const li = document.createElement("li");
+                    const link = document.createElement("a");
+                    link.href = url;
+                    const text = document.createTextNode(pageText);
+                    //<li><a>page text</a></li>
+                    li.appendChild(link);
+                    link.appendChild(text);
+                    document.getElementById("webring-list").appendChild(li);
+                }
+
+                addListItem("https://riverseeber.net", "River's Website");
+            </script>
+        </div>
+    </div>
+</body>
+</html>

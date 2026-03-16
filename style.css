@@ -1,0 +1,13 @@
+.top-parent {
+    background-color: antiquewhite;
+    height: 90vh;
+}
+
+.box1 {
+    border: 1px solid black;
+    height: 2em;
+}
+
+.box2 {
+    border: 1px dashed red;
+}
