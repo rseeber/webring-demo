@@ -14,6 +14,26 @@
         <div class="box2" id="webring-display">
             <ul id="webring-list">
             </ul>
+            <script src="/node_modules/rss-parser/dist/rss-parser.min.js"></script>
+            <script>
+            // Note: some RSS feeds can't be loaded in the browser due to CORS security.
+            // To get around this, you can use a proxy.
+            const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"
+
+            let parser = new RSSParser();
+            parser.parseURL(CORS_PROXY + 'https://www.reddit.com/.rss', function(err, feed) {
+            if (err){ 
+                console.log("error");
+                throw err;
+            }
+            console.log(feed.title);
+            feed.items.forEach(function(entry) {
+                console.log(entry.title + ':' + entry.link);
+                addListItem(entry.link, feed.title + ": " + entry.title);
+            })
+            })
+
+            </script>
             <script>
                 function addListItem(url, pageText){
                     const li = document.createElement("li");
